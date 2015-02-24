@@ -13,13 +13,7 @@ PASSWORD = 'password'
 HOST = '0.0.0.0'
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['KEYSTONE_AUTH_URL'] = 'http://10.1.10.130:5000/v2.0'
-app.config['SWIFT_USER'] = 'swiftclient'
-app.config['SWIFT_PASS'] = 'swiftpass'
-app.config['TENANT_NAME'] = 'admin'
-app.config['KEYSTONE_AUTH_VERSION'] = '2.0'
-app.config['CONTAINER'] = 'test_container_lab'
-app.config['SWIFT_CONTAINER_BASE_PATH'] = 'http://10.1.10.130:8080'
+app.config.from_envvar("APP_CONFIG")
 
 objstr = objectstore.ObjectStore(app.config['KEYSTONE_AUTH_URL'], app.config['SWIFT_USER'], app.config['SWIFT_PASS'], app.config['TENANT_NAME'], app.config['KEYSTONE_AUTH_VERSION'], app.config['CONTAINER'], app.config['SWIFT_CONTAINER_BASE_PATH'])
 # Code to connect to the flaskr database from config
