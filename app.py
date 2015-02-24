@@ -7,13 +7,9 @@ import objectstore
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-DEBUG = True
-SECRET_KEY = 'secret'
-USERNAME = 'admin'
-PASSWORD = 'password'
 app.config.from_envvar("APP_CONFIG")
 
-objstr = objectstore.ObjectStore(app.config['KEYSTONE_AUTH_URL'], app.config['SWIFT_USER'], app.config['SWIFT_PASS'], app.config['TENANT_NAME'], app.config['KEYSTONE_AUTH_VERSION'], app.config['CONTAINER'], app.config['SWIFT_CONTAINER_BASE_PATH'])
+objstr = objectstore.ObjectStore(app.config['KEYSTONE_AUTH_URL'], app.config['SWIFT_USER'], app.config['SWIFT_PASS'], app.config['TENANT_NAME'], app.config['KEYSTONE_AUTH_VERSION'], app.config['CONTAINER'], app.config['SWIFT_CONTAINER_BASE_PATH'], app.config['SECRET_KEY'])
 # Code to connect to the flaskr database from config
 def connect_db():
     """ Connects to the database """
