@@ -4,15 +4,13 @@ import sqlite3
 from datetime import datetime
 import objectstore
 # Configuration
+app = Flask(__name__)
+app.config.from_object(__name__)
 
-DATABASE='flaskr.db'
 DEBUG = True
 SECRET_KEY = 'secret'
 USERNAME = 'admin'
 PASSWORD = 'password'
-HOST = '0.0.0.0'
-app = Flask(__name__)
-app.config.from_object(__name__)
 app.config.from_envvar("APP_CONFIG")
 
 objstr = objectstore.ObjectStore(app.config['KEYSTONE_AUTH_URL'], app.config['SWIFT_USER'], app.config['SWIFT_PASS'], app.config['TENANT_NAME'], app.config['KEYSTONE_AUTH_VERSION'], app.config['CONTAINER'], app.config['SWIFT_CONTAINER_BASE_PATH'])
@@ -135,5 +133,5 @@ if __name__ == '__main__':
     else:
        objstr.create_container(app.config['CONTAINER'])
 
-    app.run(host=app.config['HOST'])
+    app.run(host=app.config['HOST'],port=app.config['PORT'])
     
