@@ -1,6 +1,7 @@
 KEYSTONE_AUTH_URL = 'https://chrcnc-api.os.cloud.twc.net:5000/v2.0'
 CONTAINER = 'test_container1'
 SWIFT_CONTAINER_BASE_PATH = 'https://chrcnc-api.os.cloud.twc.net'
+SWIFT_ACCT_NAME = 'KEY'
 SWIFT_USER = 'rstarmer'
 SWIFT_PASS = '0n3C10ud!'
 TENANT_NAME = 'rstarmer-training'
@@ -9,6 +10,6 @@ HOST = '0.0.0.0'
 PORT = 80
 DATABASE = 'flaskr.db'
 DEBUG = True
-SECRET_KEY = 'secret'
+SECRET_KEY = 'blahblahblah'
 USERNAME = 'admin'
 PASSWORD = 'password'

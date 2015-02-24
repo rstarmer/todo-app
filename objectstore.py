@@ -6,9 +6,10 @@ from hashlib import sha1
 from time import time
 
 class ObjectStore:
-      def __init__(self, KEYSTONE_AUTH_URL, SWIFT_USER, SWIFT_PASS, TENANT_NAME, KEYSTONE_AUTH_VERSION, CONTAINER, SWIFT_CONTAINER_BASE_PATH, SECRET_KEY):
+      def __init__(self, KEYSTONE_AUTH_URL, SWIFT_USER, SWIFT_PASS, TENANT_NAME, KEYSTONE_AUTH_VERSION, CONTAINER, SWIFT_CONTAINER_BASE_PATH, SECRET_KEY, SWIFT_ACCT_NAME ):
            self.container = CONTAINER
            self.container_base_path = SWIFT_CONTAINER_BASE_PATH
+	   self.swift_acct_name = SWIFT_ACCT_NAME
            keystone = client.Client(username=SWIFT_USER, password=SWIFT_PASS, tenant_name=TENANT_NAME, auth_url=KEYSTONE_AUTH_URL)
            self.tenant_id = keystone.auth_tenant_id
            self.secret = SECRET_KEY
@@ -44,7 +45,7 @@ class ObjectStore:
       def get_temp_url(self, obj, expire_after):
           method = 'GET'
           expires = int(time() + expire_after*60)
-          path = '/v1/AUTH_%s/%s/%s' %(self.tenant_id, self.container,obj)
+          path = '/v1/%s_%s/%s/%s' %(self.swift_acct_name, self.tenant_id, self.container,obj)
           key = self.secret
           hmac_body = '%s\n%s\n%s' %(method, expires, path)
           sig = hmac.new(key, hmac_body, sha1).hexdigest()
